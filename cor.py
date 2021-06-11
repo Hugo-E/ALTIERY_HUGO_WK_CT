@@ -3,6 +3,7 @@ import mediapipe as mp
 mp_drawing = mp.solutions.drawing_utils
 mp_hands = mp.solutions.hands
 
+
 def draw_plan():
     cam = cv2.VideoCapture(0)
     mpHand = mp.solutions.hands
@@ -17,6 +18,11 @@ def draw_plan():
     # print(results.multi_hand_landmarks)
         if results.multi_hand_landmarks:
             for handlms in results.multi_hand_landmarks:
+                for id, lm in enumerate(handlms.landmark):
+                    h, w, c = frame.shape
+                    x, y = int(lm.x * w), int(lm.y * h)
+                print(x)
+                print(y)
                 mpDraw.draw_landmarks(frame, handlms)
             cv2.imshow("Camera", frame)
         if cv2.waitKey(1) == ord('q'):
